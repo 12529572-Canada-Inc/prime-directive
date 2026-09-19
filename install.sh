@@ -1,32 +1,28 @@
 #!/usr/bin/env bash
-# Install the prime directive as an always-on rule for every Claude Code / Cowork session on this machine.
+# Install the prime directive as an always-on rule for every agent on this machine
+# that reads a global instruction file:
 #
-#   1. Copies the skill to ~/.claude/skills/prime-directive/  (so /prime-directive works everywhere)
-#   2. Adds an @import line to ~/.claude/CLAUDE.md             (so the directive is loaded every session)
+#   ~/.claude/skills/prime-directive/SKILL.md   so /prime-directive works in any Claude Code / Cowork project
+#   ~/.claude/CLAUDE.md                          Claude Code / Cowork
+#   ~/.codex/AGENTS.md                           Codex CLI
+#   ~/.gemini/GEMINI.md                          Gemini CLI
 #
-# Safe to re-run: existing files are updated, the import line is added only once.
+# The full directive text is written into each file inside a marked block, so it works
+# for tools with no @import syntax. Safe to re-run: blocks are replaced in place, never duplicated.
 set -euo pipefail
+. "$(dirname "${BASH_SOURCE[0]}")/scripts/lib.sh"
+. "$(dirname "${BASH_SOURCE[0]}")/scripts/targets.sh"
 
-SRC="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)/.claude/skills/prime-directive"
 DEST_DIR="${HOME}/.claude/skills/prime-directive"
-GLOBAL_MD="${HOME}/.claude/CLAUDE.md"
-IMPORT_LINE="@~/.claude/skills/prime-directive/SKILL.md"
-
 mkdir -p "$DEST_DIR"
-cp "$SRC/SKILL.md" "$DEST_DIR/SKILL.md"
-echo "Installed skill -> $DEST_DIR/SKILL.md"
+cp "$SOURCE" "$DEST_DIR/SKILL.md"
+echo "installed  ~/.claude/skills/prime-directive/SKILL.md"
 
-touch "$GLOBAL_MD"
-if grep -qxF "$IMPORT_LINE" "$GLOBAL_MD"; then
-  echo "Import already present in $GLOBAL_MD"
-else
-  {
-    [ -s "$GLOBAL_MD" ] && echo
-    echo "# Always-on: Prime Directive"
-    echo "The prime directive applies to every task, in every project. Full text:"
-    echo "$IMPORT_LINE"
-  } >> "$GLOBAL_MD"
-  echo "Added import -> $GLOBAL_MD"
-fi
+pd_targets | while read -r scope path kind fm _tool; do
+  [ "$scope" = home ] || continue
+  pd_upsert_block "$(pd_resolve "$scope" "$path")"
+  echo "installed  ~/$path"
+done
 
-echo "Done. The prime directive is now always on for Claude Code and Cowork on this machine."
+echo
+echo "Done. Run scripts/doctor.sh to verify. Per-project files are rendered with scripts/render.sh."
