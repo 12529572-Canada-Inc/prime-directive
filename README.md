@@ -10,7 +10,7 @@ The skill lives in `.claude/skills/prime-directive/SKILL.md`.
 
 **For every project:** copy the folder to `~/.claude/skills/prime-directive/`.
 
-**As an always-on rule:** skills load when their description matches the task. A prime directive should arguably never be off, so for the strongest effect paste the "The directive" and "Core principles" sections into your `CLAUDE.md` (or your agent's system prompt) and keep the skill for the full decision procedure and examples.
+**As an always-on rule (recommended):** skills only load when their description matches the task, and a prime directive should never be off. Run `./install.sh` — it copies the skill to `~/.claude/skills/` and adds an `@~/.claude/skills/prime-directive/SKILL.md` import to `~/.claude/CLAUDE.md`, so the full directive is in context at the start of every Claude Code / Cowork session on the machine. This repo's own `CLAUDE.md` does the same thing at project scope. For a single other project, add `@path/to/SKILL.md` to that project's `CLAUDE.md`.
 
 **Other agent frameworks:** the SKILL.md body is plain Markdown; drop it into any system prompt, constitution file, or policy document.
 
