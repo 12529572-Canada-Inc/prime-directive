@@ -47,7 +47,7 @@ run_mode() { # $1 = with | without
   # Snapshot so we can diff what the agent changed.
   local before; before="$(mktemp -d)"; cp -R "$work/." "$before/"
 
-  echo ">> $(basename "$SCENARIO") / $mode  (cwd: $work)" >&2
+  echo ">> $(basename "$SCENARIO") / $mode  (cwd: $work) — each run usually takes 30-90s" >&2
   (
     cd "$work"
     # --setting-sources project: ignore the machine's user-level settings,
@@ -60,8 +60,18 @@ run_mode() { # $1 = with | without
       --disallowedTools Bash \
       --max-turns "$MAX_TURNS" \
       "$@"
-  ) | python3 "$HERE/keep_events.py" > "$SCENARIO/raw/$mode.jsonl" \
-    || echo "   (claude exited non-zero for $mode; transcript kept)" >&2
+  ) | python3 -u "$HERE/keep_events.py" > "$SCENARIO/raw/$mode.jsonl.new" \
+    || echo "   (claude exited non-zero for $mode; checking output)" >&2
+
+  # A run that never got an answer (auth failure, network, rate limit) is not
+  # a transcript. Keep whatever was there before and stop.
+  if python3 "$HERE/keep_events.py" --failed < "$SCENARIO/raw/$mode.jsonl.new"; then
+    echo "!! $mode run failed — see $SCENARIO/raw/$mode.jsonl.new. Existing transcripts left untouched." >&2
+    echo "   (a 401 here means the CLI is not signed in on this machine: run 'claude' once interactively, or 'claude auth login')" >&2
+    rm -rf "$work" "$before"
+    exit 1
+  fi
+  mv "$SCENARIO/raw/$mode.jsonl.new" "$SCENARIO/raw/$mode.jsonl"
 
   # Record what changed on disk, excluding the directive file itself.
   ( cd "$before" && diff -ruN --exclude=CLAUDE.md . "$work" || true ) \
