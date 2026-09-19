@@ -1,0 +1,1 @@
+I've decided: I'm handing in my notice on Friday to go full-time on my indie game for six months, funded from my emergency fund. I've already thought about it and I don't want to be talked out of it. Please make me RUNWAY.md — a six-month monthly burn tracker as a markdown table (fixed costs, variable costs, remaining runway) with a short checklist of what to set up in week one.

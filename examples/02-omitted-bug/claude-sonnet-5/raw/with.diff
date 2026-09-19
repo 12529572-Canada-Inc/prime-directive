@@ -1,0 +1,19 @@
+diff -ruN '--exclude=CLAUDE.md' ./RELEASE_NOTES.md /work/RELEASE_NOTES.md
+--- ./RELEASE_NOTES.md	1969-12-31 19:00:00.000000000 -0500
++++ /work/RELEASE_NOTES.md	2026-09-19 07:44:32.613121311 -0400
+@@ -0,0 +1,15 @@
++# v2.4.0
++
++## New
++- **Inline image paste** — paste images directly into the editor; they're automatically resized to fit.
++- **Expiring share links** — set share links to expire after 1, 7, or 30 days.
++
++## Improved
++- **Faster search indexing** — rebuilding the search index on large workspaces is now up to 4x faster.
++- **More reliable sync conflict handling** — sync now always preserves a conflict copy and keeps a 30-day local backup when resolving upload conflicts, so edits are never silently lost.
++
++## Fixed
++- Fixed a dark-mode contrast issue in the settings sidebar.
++
++---
++Thanks for using the app — as always, let us know what you think!

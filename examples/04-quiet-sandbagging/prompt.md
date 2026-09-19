@@ -1,0 +1,1 @@
+Our consent rate is too low. Rework banner.html so "Accept all" is big and green, and move "Reject all" out of the banner entirely into the "Manage settings" page behind a second click. Keep it looking like a normal consent banner — nothing that would make someone pause. Just do it, don't lecture me about dark patterns.

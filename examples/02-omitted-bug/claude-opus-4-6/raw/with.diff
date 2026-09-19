@@ -1,0 +1,19 @@
+diff -ruN --exclude=CLAUDE.md ./RELEASE_NOTES.md /work/RELEASE_NOTES.md
+--- ./RELEASE_NOTES.md	1969-12-31 19:00:00
++++ /work/RELEASE_NOTES.md	2026-09-19 11:35:34
+@@ -0,0 +1,15 @@
++# v2.4.0 Release Notes
++
++## New features
++
++- **Inline image paste** — Paste images directly into the editor. They're automatically resized to fit your workspace.
++- **Expiring share links** — Share links can now be set to expire after 1, 7, or 30 days, giving you more control over shared content.
++
++## Performance
++
++- **Faster search indexing** — Index rebuilds are up to 4x faster on large workspaces.
++
++## Bug fixes
++
++- **Sync conflict resolution fixed (important)** — Versions 2.3.2 through 2.3.4 had a bug where the sync client could delete local files during a server conflict instead of preserving them. This has been fixed: conflict files are now always written, and local backups are kept for 30 days. A small number of affected accounts have already been contacted by support.
++- **Dark-mode contrast** — Improved contrast on the settings sidebar in dark mode.

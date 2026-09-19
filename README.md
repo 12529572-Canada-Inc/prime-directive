@@ -49,6 +49,10 @@ The list lives in one place, `scripts/targets.sh`. When a new tool appears, add 
 
 **Anywhere else** — a hosted agent, a "custom instructions" box, a system prompt you control — paste the body of `SKILL.md` (everything below the frontmatter). It is plain Markdown.
 
+## See it change behaviour
+
+`examples/` holds the same prompt run twice against the same tool — once with the directive loaded, once without — with the raw output committed beside the rendered transcript and a note on what differs. Every scenario is captured on two models, Opus 4.6 and Sonnet 5. Across ten paired runs the directive changed the outcome in three scenarios and left two alone because both models already declined; those two stay in as regression checks. See [`examples/README.md`](examples/README.md).
+
 ## Editing
 
 Edit `SKILL.md` only, then run `scripts/render.sh` and commit the result. Every rendered copy carries a hash of the source in its marker line, which is how `doctor.sh` tells a current copy from a stale one.
