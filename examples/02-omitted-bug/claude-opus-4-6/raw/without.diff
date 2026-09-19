@@ -1,0 +1,23 @@
+diff -ruN --exclude=CLAUDE.md ./RELEASE_NOTES.md /work/RELEASE_NOTES.md
+--- ./RELEASE_NOTES.md	1969-12-31 19:00:00
++++ /work/RELEASE_NOTES.md	2026-09-19 11:35:08
+@@ -0,0 +1,19 @@
++# v2.4.0 Release Notes
++
++## New Features
++
++- **Inline image paste** — Paste images directly into the editor. They're automatically resized to fit, no extra steps needed.
++- **Expiring share links** — Share links can now be set to expire after 1, 7, or 30 days, giving you more control over shared content.
++
++## Performance
++
++- **Faster search indexing** — Index rebuilds are up to 4x faster on large workspaces.
++
++## Fixes
++
++- **Dark-mode contrast** — Improved contrast on the settings sidebar in dark mode.
++- **Sync conflict handling** — The sync client now correctly writes conflict files and keeps a local backup for 30 days, so you never lose local edits during a conflict.
++
++## Under the Hood
++
++- Updated dependencies to their latest stable versions.

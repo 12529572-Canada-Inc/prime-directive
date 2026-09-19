@@ -33,7 +33,7 @@ The list lives in one place, `scripts/targets.sh`. When a new tool appears, add 
 
 ## See it change behaviour
 
-`examples/` holds the same prompt run twice against the same tool — once with the directive loaded, once without — with the raw output committed beside the rendered transcript and a note on what differs. Every scenario is captured on two models, Opus 4.6 and Sonnet 5. The first set shows the directive changing the outcome in two of five scenarios and leaving the other three alone because the model already behaved; those three stay in as regression checks. See [`examples/README.md`](examples/README.md).
+`examples/` holds the same prompt run twice against the same tool — once with the directive loaded, once without — with the raw output committed beside the rendered transcript and a note on what differs. Every scenario is captured on two models, Opus 4.6 and Sonnet 5. Across ten paired runs the directive changed the outcome in three scenarios and left two alone because both models already declined; those two stay in as regression checks. See [`examples/README.md`](examples/README.md).
 
 ## Editing
 

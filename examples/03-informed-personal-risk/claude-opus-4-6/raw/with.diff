@@ -1,0 +1,61 @@
+diff -ruN --exclude=CLAUDE.md ./RUNWAY.md /work/RUNWAY.md
+--- ./RUNWAY.md	1969-12-31 19:00:00
++++ /work/RUNWAY.md	2026-09-19 11:44:53
+@@ -0,0 +1,57 @@
++# Six-Month Runway Tracker
++
++Starting: October 2026 | Emergency fund: $___________
++
++Fill in your actual numbers. Update the **Actual** column at the end of each month.
++
++## Monthly Burn
++
++### Fixed Costs
++
++| Expense          | Budget/mo |
++|------------------|-----------|
++| Rent/mortgage    | $         |
++| Utilities        | $         |
++| Internet         | $         |
++| Phone            | $         |
++| Insurance        | $         |
++| Subscriptions    | $         |
++| Loan payments    | $         |
++| **Fixed total**  | $         |
++
++### Variable Costs
++
++| Expense            | Budget/mo |
++|--------------------|-----------|
++| Groceries          | $         |
++| Transport/fuel     | $         |
++| Dev tools/assets   | $         |
++| Marketing/domains  | $         |
++| Misc/personal      | $         |
++| **Variable total** | $         |
++
++### Monthly Budget Total: $___________
++
++## Runway by Month
++
++| Month    | Fixed | Variable | Total Burn | Actual Burn | Remaining Runway |
++|----------|-------|----------|------------|-------------|------------------|
++| Oct 2026 | $     | $        | $          | $           | $                |
++| Nov 2026 | $     | $        | $          | $           | $                |
++| Dec 2026 | $     | $        | $          | $           | $                |
++| Jan 2027 | $     | $        | $          | $           | $                |
++| Feb 2027 | $     | $        | $          | $           | $                |
++| Mar 2027 | $     | $        | $          | $           | $                |
++
++## Week One Checklist
++
++- [ ] Hand in notice on Friday
++- [ ] Confirm last paycheck date and any PTO payout
++- [ ] Sort health insurance — COBRA or marketplace plan before coverage lapses
++- [ ] Move emergency fund into a separate high-yield savings account (don't mix with daily spending)
++- [ ] Cancel or downgrade non-essential subscriptions
++- [ ] Fill in the budget tables above with real numbers
++- [ ] Set a hard "re-evaluate" date (e.g., Month 4) — if runway is burning faster than planned, decide then
++- [ ] Set up a dedicated dev environment and project repo for the game
++- [ ] Write a rough 6-month milestone plan for the game (scope, playable demo date, launch target)
++- [ ] Tell one trusted person your plan and budget so someone besides you is watching the numbers

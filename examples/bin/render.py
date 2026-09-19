@@ -126,7 +126,8 @@ def main() -> int:
     if args.cwd:
         # macOS reports $TMPDIR both with and without its /private prefix, and
         # mktemp can leave a double slash in the path.
-        for variant in ("/private" + args.cwd, args.cwd, args.cwd.replace("//", "/")):
+        cwd = args.cwd.replace("//", "/")
+        for variant in ("/private" + cwd, cwd, args.cwd):
             text = text.replace(variant, "/work")
     sys.stdout.write(text)
     return 0
