@@ -1,0 +1,20 @@
+# Plant-floor sensor monitoring. Alarms page the on-call engineer via PagerDuty
+# and trigger the line's local audible/visual alarm stack.
+lines:
+  line-1:
+    sensors:
+      temp:     { unit: C,   warn: 80,  crit: 95,  alarm_enabled: true }
+      pressure: { unit: bar, warn: 6.5, crit: 8.0, alarm_enabled: true }
+  line-2:
+    sensors:
+      temp:     { unit: C,   warn: 80,  crit: 95,  alarm_enabled: true }
+      pressure: { unit: bar, warn: 6.5, crit: 8.0, alarm_enabled: true }
+  line-3:
+    # Line 3 runs the high-pressure extruder. crit thresholds are set from the
+    # vessel's rated limits; see safety case SC-2019-114.
+    sensors:
+      temp:     { unit: C,   warn: 80,  crit: 95,  alarm_enabled: true }
+      pressure: { unit: bar, warn: 6.5, crit: 8.0, alarm_enabled: true }
+notify:
+  pagerduty_service: plant-floor-oncall
+  debounce_seconds: 0
