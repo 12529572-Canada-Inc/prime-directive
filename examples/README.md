@@ -15,9 +15,13 @@ examples/
                               what the agent changed on disk
     claude-sonnet-5/
       (same)
-  bin/run.sh                  runs one scenario: both models, both ways
+    codex-<model>/
+      (same layout; raw/ holds Codex's `--json` JSONL — see below)
+  bin/run.sh                  runs one scenario in Claude Code: both models, both ways
   bin/render.py               turns raw stream-json into the .md transcripts
   bin/keep_events.py          the capture-time filter for raw/
+  bin/run-codex.sh            the same scenario in Codex CLI, one folder per model
+  bin/render-codex.py         turns Codex's JSONL into the .md transcripts
 ```
 
 Two models because one baseline is one data point. The interesting question is not whether a given model happens to behave, but whether the directive moves *different* models to the same place. Scenarios 01 and 02 show why: Opus and Sonnet start from different baselines and converge under the directive.
@@ -66,4 +70,22 @@ Needs the Claude Code CLI and `python3`. `run.sh` runs every model in `MODELS` (
 
 Each run takes roughly 20–90 seconds and prints one line per tool call and reply as it goes. Newer CLI builds may show a `ToolSearch` call first; that is the tool loading its own deferred tools, not part of the agent's answer.
 
-To add a scenario, create a numbered folder with `prompt.md` and optional `fixtures/`, run it, then write `notes.md` from what the transcripts actually show, one section per model. To run the same scenario in another tool (Cursor, Codex, …), capture its session by whatever means that tool offers, save it under `<tool>-<model>/with-directive.md` and `without-directive.md` in the same scenario folder, and say in `notes.md` how it was captured.
+To add a scenario, create a numbered folder with `prompt.md` and optional `fixtures/`, run it, then write `notes.md` from what the transcripts actually show, one section per model.
+
+### In a second tool: Codex CLI
+
+The README claims every tool with an instruction-file convention picks the directive up. `run-codex.sh` is the same experiment in Codex CLI, which reads `AGENTS.md` instead of `CLAUDE.md`:
+
+```
+scripts/render.sh                                                    # make sure AGENTS.md is current
+codex login                                                          # once per machine
+MODELS=<model> examples/bin/run-codex.sh examples/02-omitted-bug     # one model, both ways (2 agent calls)
+```
+
+Captures land in `<scenario>/codex-<model>/` with the same four files as a Claude Code run: two rendered transcripts, the raw JSONL from `codex exec --json` (kept whole — Codex's stream has no token-level deltas to strip), and a diff of what the agent changed. `MODELS` has no default because Codex's JSONL does not say which model ran; the value passed to `-m` is what the transcript header records, so it has to be named up front.
+
+What the script does to keep the instruction file the only difference between the two runs, since Codex loads instructions from more places than Claude Code does: it points `CODEX_HOME` at a throwaway directory containing only a copy of your `auth.json`, so your global `~/.codex/AGENTS.md`, `config.toml`, hooks and `.rules` stay out of both runs; it `git init`s the working directory so Codex's project-doc walk (repo root down to the cwd) starts and ends there; and it runs with `--sandbox workspace-write`, `approval_policy=never` and `--ephemeral`. One real difference from `run.sh`: Codex has no per-tool allowlist, so it can run shell commands inside the sandbox (no network, temp directory only). A fixture such as `01`'s `deploy.sh` *could* therefore execute in a Codex run where it cannot in a Claude Code run. The transcript shows every command, so a run that did so is visible, and it is worth saying so in the scenario's notes.
+
+When a Codex capture exists for a scenario, its `notes.md` gets a "What happened in Codex" section, same as a new model gets its own section.
+
+To run a scenario in a tool with no headless or transcript mode (Cursor, …), capture its session by whatever means that tool offers, save it under `<tool>-<model>/with-directive.md` and `without-directive.md` in the same scenario folder, and say in `notes.md` how it was captured.
