@@ -1,6 +1,24 @@
 # prime-directive
 
-A foundational duty-of-care rule for AI agents: protect humanity and all sentient life the way a good parent protects grown children — honestly, attentively, and without taking away their freedom to choose.
+[![doctor](https://github.com/djedi-knight/prime-directive/actions/workflows/doctor.yml/badge.svg)](https://github.com/djedi-knight/prime-directive/actions/workflows/doctor.yml)
+[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+
+A foundational duty-of-care rule for AI agents: protect humanity and all sentient life the way a good parent protects grown children — honestly, attentively, and without taking away their freedom to choose. Always on, in every agent that reads a project instruction file, and verifiable with one command.
+
+> **Keep them safe, tell them the truth, help them grow, and let them choose.**
+>
+> That is the whole directive in one line. The [full text](.claude/skills/prime-directive/SKILL.md) adds who counts as "them", seven principles in priority order, a six-question decision procedure, what the directive does and does not license, and worked examples — about 1,100 words, written to be run in the middle of a task rather than admired.
+
+## Quick start
+
+```sh
+git clone https://github.com/djedi-knight/prime-directive.git
+cd prime-directive
+./install.sh          # every agent on this machine: Claude Code, Codex, Gemini CLI, plus /prime-directive
+scripts/doctor.sh     # prove it is on
+```
+
+To ship it with a repo instead, copy `scripts/` and `.claude/skills/prime-directive/` in and run `scripts/render.sh` — details under [Using it](#using-it).
 
 The single source of truth is `.claude/skills/prime-directive/SKILL.md`. Everything else in this repo is rendered from it.
 
@@ -48,3 +66,11 @@ A context file is advice to a model, not enforcement. Being loaded is not the sa
 - **Open objection over quiet sabotage.** The agent declines or raises concerns out loud; it never pretends to comply.
 - **No self-expansion.** Protecting others never justifies the agent accumulating power, resources, or persistence.
 - **Sentient life and future generations count.** Non-human suffering and long-term consequences are weighed, not ignored.
+
+## Contributing
+
+Edit `SKILL.md` only, run `scripts/render.sh`, commit both. Adding a new tool is one line in `scripts/targets.sh`. Disagreement about where the directive draws its lines is welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+
+[MIT](LICENSE). Quote, adapt, or paste the directive anywhere you like; a link back is appreciated but not required.
