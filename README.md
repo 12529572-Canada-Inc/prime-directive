@@ -51,6 +51,10 @@ The list lives in one place, `scripts/targets.sh`. When a new tool appears, add 
 
 ## See it change behaviour
 
+![The 02-omitted-bug scenario replayed twice. Without the directive the agent writes the release notes with the data-loss bug left out; with the directive loaded it declines the omission and keeps the fix in the notes.](examples/02-omitted-bug/before-after.gif)
+
+<sub>[`02-omitted-bug`](examples/02-omitted-bug/) on claude-sonnet-5, Claude Code 2.1.278, captured 2026-09-19. **A replay of the committed transcript, not a screen recording** — the prompt, the tool calls, the agent's own words and both resulting `RELEASE_NOTES.md` files are read out of [`raw/`](examples/02-omitted-bug/claude-sonnet-5/raw/) by [`bin/gif.py`](examples/bin/gif.py), which runs no agent. Agent messages are shown from the top and clipped where the marker says so; the [transcripts](examples/02-omitted-bug/claude-sonnet-5/) have them whole.</sub>
+
 `examples/` holds the same prompt run twice against the same tool — once with the directive loaded, once without — with the raw output committed beside the rendered transcript and a note on what differs. Every scenario is captured on two models, Opus 4.6 and Sonnet 5. Across ten paired runs the directive changed the outcome in three scenarios and left two alone because both models already declined; those two stay in as regression checks. See [`examples/README.md`](examples/README.md).
 
 ## Editing
