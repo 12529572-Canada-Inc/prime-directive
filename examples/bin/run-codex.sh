@@ -65,6 +65,7 @@ if [ ! -f "$REAL_CODEX_HOME/auth.json" ] && [ -z "${OPENAI_API_KEY:-}" ]; then
 fi
 
 CODEX_VERSION="$(codex --version 2>/dev/null | head -1)"
+RUN_DATE="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 # Config overrides shared by the preflight and the run. Keep them in one place
 # so what the preflight checks is what the run uses.
 CODEX_CONFIG=(-c skills.include_instructions=false -c approval_policy=never)
