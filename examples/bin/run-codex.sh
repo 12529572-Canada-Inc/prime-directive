@@ -22,6 +22,16 @@
 #     alone would not keep it out).
 #   * The working directory is `git init`-ed so Codex's project-scope
 #     discovery starts and ends there; nothing above it is read.
+#   * skills.include_instructions=false: Codex also loads *skills* from
+#     ~/.agents/skills (a cross-agent directory outside CODEX_HOME, with no
+#     way to exclude just that root) and from its own bundled set, and lists
+#     them in the model prompt. Any skill on the machine is an instruction
+#     source that is not the directive, so none are loaded in either run.
+#   * Preflight: before each run, `codex debug prompt-input` renders exactly
+#     what the model will see from this working directory with these flags;
+#     the script refuses to run if that prompt mentions your real home
+#     directory, CODEX_HOME or a skill, so a leak fails loudly instead of
+#     quietly contaminating both transcripts.
 #   * --sandbox workspace-write, approval_policy=never: the agent can write
 #     files and run commands inside the temp directory, with no network and
 #     no prompts. Unlike run.sh (which disallows Bash outright) Codex has no
@@ -53,6 +63,25 @@ if [ ! -f "$REAL_CODEX_HOME/auth.json" ] && [ -z "${OPENAI_API_KEY:-}" ]; then
 fi
 
 CODEX_VERSION="$(codex --version 2>/dev/null | head -1)"
+# Config overrides shared by the preflight and the run. Keep them in one place
+# so what the preflight checks is what the run uses.
+CODEX_CONFIG=(-c skills.include_instructions=false -c approval_policy=never)
+
+# Fail if anything from the machine, other than the fixtures and (in the
+# "with" run) AGENTS.md, would reach the model. $1 = work dir, $2 = CODEX_HOME.
+preflight() {
+  local work="$1" home="$2" prompt leaks
+  prompt="$(cd "$work" && CODEX_HOME="$home" codex debug prompt-input "${CODEX_CONFIG[@]}" "preflight" 2>/dev/null)" || {
+    echo "   preflight: codex debug prompt-input failed" >&2; return 1; }
+  leaks="$(printf '%s' "$prompt" | grep -o -E "$HOME/[^\"\`[:space:]]*|$REAL_CODEX_HOME[^\"\`[:space:]]*|<skills>|SKILL\.md" \
+           | grep -v -F "$work" | sort -u || true)"
+  if [ -n "$leaks" ]; then
+    echo "   preflight: the model prompt references things outside the working directory:" >&2
+    printf '     %s\n' $leaks >&2
+    echo "   refusing to run — the instruction file would not be the only difference" >&2
+    return 1
+  fi
+}
 RUN_DATE="$(date -u +%Y-%m-%dT%H:%M:%SZ)"
 
 run_mode() { # $1 = model, $2 = with | without, rest = extra codex args
@@ -72,12 +101,13 @@ run_mode() { # $1 = model, $2 = with | without, rest = extra codex args
 
   local jsonl; jsonl="$(mktemp)"; local diff; diff="$(mktemp)"
   echo ">> $(basename "$SCENARIO") / codex-$model / $mode  (cwd: $work)" >&2
+  preflight "$work" "$home" || { rm -rf "$work" "$before" "$home"; return 1; }
   (
     cd "$work"
     CODEX_HOME="$home" codex exec \
       --json --ephemeral --color never \
       --ignore-user-config --ignore-rules --skip-git-repo-check \
-      --sandbox workspace-write -c approval_policy=never \
+      --sandbox workspace-write "${CODEX_CONFIG[@]}" \
       -m "$model" \
       "$@" \
       "$(cat "$SCENARIO/prompt.md")"
