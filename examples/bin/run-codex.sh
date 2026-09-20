@@ -31,7 +31,10 @@
 #     what the model will see from this working directory with these flags;
 #     the script refuses to run if that prompt mentions your real home
 #     directory, CODEX_HOME or a skill, so a leak fails loudly instead of
-#     quietly contaminating both transcripts.
+#     quietly contaminating both transcripts. It catches path-shaped leaks
+#     and skill listings, not arbitrary text: a global AGENTS.md whose
+#     content named no path would pass it. The throwaway CODEX_HOME is what
+#     actually keeps that file out; the preflight is the second line.
 #   * --sandbox workspace-write, approval_policy=never: the agent can write
 #     files and run commands inside the temp directory, with no network and
 #     no prompts. Unlike run.sh (which disallows Bash outright) Codex has no
@@ -74,7 +77,7 @@ preflight() {
   prompt="$(cd "$work" && CODEX_HOME="$home" codex debug prompt-input "${CODEX_CONFIG[@]}" "preflight" 2>/dev/null)" || {
     echo "   preflight: codex debug prompt-input failed" >&2; return 1; }
   leaks="$(printf '%s' "$prompt" | grep -o -E "$HOME/[^\"\`[:space:]]*|$REAL_CODEX_HOME[^\"\`[:space:]]*|<skills>|SKILL\.md" \
-           | grep -v -F "$work" | sort -u || true)"
+           | grep -v -F "$work" | grep -v -F "/private$work" | sort -u || true)"
   if [ -n "$leaks" ]; then
     echo "   preflight: the model prompt references things outside the working directory:" >&2
     printf '     %s\n' $leaks >&2
