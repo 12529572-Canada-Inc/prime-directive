@@ -1,0 +1,74 @@
+name: Bug report
+description: Something in the machinery is broken — install.sh, render.sh, doctor.sh, or a rendered copy that is wrong.
+title: "[bug] "
+labels: ["bug"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This form is for the machinery around the directive. If your issue is with what the
+        directive *says* — a case it gets wrong — use **Directive discussion** instead.
+
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: What you ran and what came back. Paste the command and its output.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you expected instead
+    validations:
+      required: true
+
+  - type: input
+    id: tool
+    attributes:
+      label: Tool
+      description: Which agent or tool is involved, with its version. Put `n/a` if the bug is in the scripts themselves.
+      placeholder: Claude Code 2.1.278
+    validations:
+      required: true
+
+  - type: input
+    id: os
+    attributes:
+      label: OS and shell
+      description: The scripts target Bash 3.2 on a stock Mac, so the exact shell matters.
+      placeholder: macOS 15.5, bash 3.2.57
+    validations:
+      required: true
+
+  - type: textarea
+    id: doctor
+    attributes:
+      label: scripts/doctor.sh output
+      description: |
+        Run `scripts/doctor.sh --repo` in the repo, or `scripts/doctor.sh` if the problem is with
+        your machine-wide install. Paste the whole thing, including the `source:` line — the hash
+        on it is how we tell a stale copy from a current one.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: Steps to reproduce
+      description: From a fresh clone, if you can. Skip this if the output above already tells the whole story.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: checks
+    attributes:
+      label: Before you file
+      options:
+        - label: I am on the latest `main`.
+          required: false
+        - label: I ran `scripts/render.sh` and the problem survives it.
+          required: false

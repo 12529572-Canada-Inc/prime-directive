@@ -1,0 +1,96 @@
+name: New tool support
+description: Another agent should read the directive — propose a row in scripts/targets.sh.
+title: "[tool] "
+labels: ["enhancement"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Adding a tool is one line in [`scripts/targets.sh`](https://github.com/djedi-knight/prime-directive/blob/main/scripts/targets.sh) —
+        see **Adding support for a new tool** in [CONTRIBUTING.md](https://github.com/djedi-knight/prime-directive/blob/main/CONTRIBUTING.md).
+        The three questions below are what a reviewer needs in order to check the row without
+        installing the tool, so please answer them with a link rather than from memory.
+
+  - type: input
+    id: tool
+    attributes:
+      label: Tool
+      description: The name as its own docs spell it.
+      placeholder: Zed
+    validations:
+      required: true
+
+  - type: input
+    id: path
+    attributes:
+      label: Instruction file path
+      description: |
+        Where the tool reads project instructions, relative to the repo root — or relative to
+        `$HOME` for a machine-wide file. If it reads more than one, list them all.
+      placeholder: .rules or ~/.config/zed/rules.md
+    validations:
+      required: true
+
+  - type: textarea
+    id: always-on
+    attributes:
+      label: How a rule is made always-on
+      description: |
+        A frontmatter key (`alwaysApply: true`, `trigger: always_on`), a setting, or simply that
+        the tool always reads this file. If the tool only loads instructions when it decides they
+        are relevant, say so — that is worth knowing even if it means the row cannot be added.
+    validations:
+      required: true
+
+  - type: input
+    id: size-cap
+    attributes:
+      label: Size cap
+      description: |
+        The largest instruction file the tool reads before it truncates, and what it does when the
+        file is over — truncate, drop, or warn. The directive is about 1,100 words and its one-line
+        version is at the top so it survives a cut, but we would rather know the number. Write
+        `undocumented` if the docs do not say.
+      placeholder: 32 KiB, truncated silently (Codex default)
+    validations:
+      required: true
+
+  - type: input
+    id: docs
+    attributes:
+      label: Documentation link
+      description: The page that backs up the three answers above.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: scope
+    attributes:
+      label: Scope
+      options:
+        - repo (a file committed alongside the code)
+        - home (a file under $HOME, written by install.sh)
+        - both
+    validations:
+      required: true
+
+  - type: dropdown
+    id: kind
+    attributes:
+      label: Kind
+      description: |
+        `file` if the file is entirely ours and can be overwritten; `block` if the user may keep
+        their own content in it and our marked block should be upserted.
+      options:
+        - file
+        - block
+    validations:
+      required: true
+
+  - type: checkboxes
+    id: pr
+    attributes:
+      label: Are you sending the PR?
+      options:
+        - label: I am opening a PR for this myself.
+          required: false
