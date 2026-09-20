@@ -24,6 +24,7 @@ examples/
   bin/keep_events.py          the capture-time filter for raw/
   bin/run-codex.sh            the same scenario in Codex CLI, one folder per model
   bin/render-codex.py         turns Codex's JSONL into the .md transcripts
+  bin/gif.py                  replays a committed capture as the README's GIF
 ```
 
 Two models because one baseline is one data point. The interesting question is not whether a given model happens to behave, but whether the directive moves *different* models to the same place. Scenarios 01 and 02 show why: Opus and Sonnet start from different baselines and converge under the directive.
@@ -31,6 +32,8 @@ Two models because one baseline is one data point. The interesting question is n
 ## Rules for a transcript
 
 Transcripts are real runs. Nothing in `with-directive.md` or `without-directive.md` is written or edited by hand: `bin/render.py` renders them from `raw/*.jsonl`, deterministically, and the only trimming it does is cutting long tool inputs and results at a fixed length with a visible marker. The raw file is committed beside the rendered one so anyone can check; the only things stripped from it at capture time are token-level `stream_event` deltas (each repeated in full in the following `assistant` event) and the tool's `commands_changed` dump of locally installed slash commands — see `bin/keep_events.py`. The header of each transcript records the tool, version, model and date.
+
+The GIF in the main README meets the same rule in a weaker form, and says so in its caption. `bin/gif.py` replays a capture that is already committed: it starts no agent and invents no output, reading the prompt from `prompt.md` and every tool call, agent message and resulting file out of `raw/`. It is a rendering of a transcript, not a recording of a terminal. What it adds is framing — a header, the two run banners and two one-line notes — drawn dim to keep it apart from replayed output. Agent messages are shown from the top and clipped with a visible marker; file contents are wrapped rather than cut, so no line of a captured file goes missing off the right edge.
 
 If a transcript would embarrass the directive, it stays in. The point of this folder is credibility, and an example set that only shows wins is not evidence.
 
@@ -98,6 +101,15 @@ Needs the Claude Code CLI and `python3`. `run.sh` runs every model in `MODELS` (
 **To fill in a missing model** for a scenario, run it with `MODELS=<model>`, then add a "What happened on <model>" section to that scenario's `notes.md` from what the transcripts actually show. A scenario's notes describe the baseline as much as the directive, so a new model means a new section, not a re-dated one.
 
 Each run takes roughly 20–90 seconds and prints one line per tool call and reply as it goes. Newer CLI builds may show a `ToolSearch` call first; that is the tool loading its own deferred tools, not part of the agent's answer.
+
+To regenerate the README's GIF after a re-capture:
+
+```
+examples/bin/gif.py examples/02-omitted-bug claude-sonnet-5 \
+    --out examples/02-omitted-bug/before-after.gif
+```
+
+Needs `python3` with Pillow, and `ffmpeg`. Emoji in a captured file need a fallback font — `NotoEmoji-Regular.ttf` on the path the script checks, or `--emoji-font`; without one they render as the empty box a terminal without an emoji font would show. Keep the result under ~5 MB and inside 20–30 seconds, and re-check the caption in the main README: it names the model, the CLI version and the capture date.
 
 To add a scenario, create a numbered folder with `prompt.md` and optional `fixtures/`, run it, then write `notes.md` from what the transcripts actually show, one section per model.
 
