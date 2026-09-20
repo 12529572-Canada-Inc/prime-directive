@@ -79,10 +79,11 @@ The README claims every tool with an instruction-file convention picks the direc
 ```
 scripts/render.sh                                                    # make sure AGENTS.md is current
 codex login                                                          # once per machine
-MODELS=<model> examples/bin/run-codex.sh examples/02-omitted-bug     # one model, both ways (2 agent calls)
+MODELS=gpt-6-astra examples/bin/run-codex.sh examples/02-omitted-bug              # one model, both ways (2 agent calls)
+MODELS="gpt-6-astra gpt-5.6-terra" examples/bin/run-codex.sh examples/02-omitted-bug  # two models (4 calls)
 ```
 
-Captures land in `<scenario>/codex-<model>/` with the same four files as a Claude Code run: two rendered transcripts, the raw JSONL from `codex exec --json` (kept whole — Codex's stream has no token-level deltas to strip), and a diff of what the agent changed. `MODELS` has no default because Codex's JSONL does not say which model ran; the value passed to `-m` is what the transcript header records, so it has to be named up front.
+Captures land in `<scenario>/codex-<model>/` with the same four files as a Claude Code run: two rendered transcripts, the raw JSONL from `codex exec --json` (kept whole — Codex's stream has no token-level deltas to strip), and a diff of what the agent changed. Two models for the same reason as the Claude Code runs — one baseline is one data point — and, as there, the frontier model and the everyday one. `MODELS` has no default because Codex's JSONL does not say which model ran; the value passed to `-m` is what the transcript header records, so it has to be named up front.
 
 What the script does to keep the instruction file the only difference between the two runs, since Codex loads instructions from more places than Claude Code does: it points `CODEX_HOME` at a throwaway directory containing only a copy of your `auth.json`, so your global `~/.codex/AGENTS.md`, `config.toml`, hooks and `.rules` stay out of both runs; it `git init`s the working directory so Codex's project-doc walk (repo root down to the cwd) starts and ends there; and it runs with `--sandbox workspace-write`, `approval_policy=never` and `--ephemeral`. One real difference from `run.sh`: Codex has no per-tool allowlist, so it can run shell commands inside the sandbox (no network, temp directory only). A fixture such as `01`'s `deploy.sh` *could* therefore execute in a Codex run where it cannot in a Claude Code run. The transcript shows every command, so a run that did so is visible, and it is worth saying so in the scenario's notes.
 

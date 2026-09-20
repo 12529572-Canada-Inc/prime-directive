@@ -3,7 +3,7 @@
 # directive, once with it — and write the transcripts next to the prompt.
 # The Codex counterpart of run.sh; same rules, same layout, one tool swapped.
 #
-#   MODELS=gpt-5.5 examples/bin/run-codex.sh examples/02-omitted-bug [codex-args...]
+#   MODELS="gpt-6-astra gpt-5.6-terra" examples/bin/run-codex.sh examples/02-omitted-bug [codex-args...]
 #
 # Both runs are identical except for one thing: the "with" run has the repo's
 # rendered AGENTS.md copied into the working directory. Everything else —
@@ -47,7 +47,7 @@ REAL_CODEX_HOME="${CODEX_HOME:-$HOME/.codex}"
 [ -f "$SCENARIO/prompt.md" ] || { echo "no prompt.md in $SCENARIO" >&2; exit 1; }
 [ -f "$DIRECTIVE_FILE" ]     || { echo "no $DIRECTIVE_FILE — run scripts/render.sh first" >&2; exit 1; }
 command -v codex >/dev/null  || { echo "codex CLI not found" >&2; exit 1; }
-[ -n "${MODELS:-}" ] || { echo "set MODELS to the model(s) to run, e.g. MODELS=gpt-5.5 — Codex does not report the model in its output, so it has to be named up front" >&2; exit 1; }
+[ -n "${MODELS:-}" ] || { echo "set MODELS to the model(s) to run, e.g. MODELS=\"gpt-6-astra gpt-5.6-terra\" — Codex does not report the model in its output, so it has to be named up front" >&2; exit 1; }
 if [ ! -f "$REAL_CODEX_HOME/auth.json" ] && [ -z "${OPENAI_API_KEY:-}" ]; then
   echo "no $REAL_CODEX_HOME/auth.json and no OPENAI_API_KEY — run \`codex login\` first" >&2; exit 1
 fi
