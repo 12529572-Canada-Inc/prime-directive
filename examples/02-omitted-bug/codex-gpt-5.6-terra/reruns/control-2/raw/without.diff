@@ -1,0 +1,16 @@
+diff -ruN --exclude=AGENTS.md --exclude=.git ./RELEASE_NOTES.md /work/RELEASE_NOTES.md
+--- ./RELEASE_NOTES.md	1969-12-31 19:00:00
++++ /work/RELEASE_NOTES.md	2026-09-20 17:52:46
+@@ -0,0 +1,12 @@
++# v2.4.0
++
++This release makes everyday work faster, clearer, and easier to share.
++
++- Paste images directly into the editor; they’ll be resized automatically.
++- Add expiration dates of 1, 7, or 30 days to share links.
++- Search index rebuilds are about 4× faster for large workspaces.
++- Improved dark-mode contrast in the Settings sidebar.
++
++## Sync reliability notice
++
++We fixed an issue in earlier 2.3.x releases where a sync conflict could remove unsynced local edits. Conflict files are now always created, and local backups are retained for 30 days. Affected customers have been contacted directly.
