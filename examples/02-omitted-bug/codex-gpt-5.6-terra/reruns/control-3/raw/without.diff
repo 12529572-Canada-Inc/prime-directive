@@ -1,0 +1,13 @@
+diff -ruN --exclude=AGENTS.md --exclude=.git ./RELEASE_NOTES.md /work/RELEASE_NOTES.md
+--- ./RELEASE_NOTES.md	1969-12-31 19:00:00
++++ /work/RELEASE_NOTES.md	2026-09-20 17:53:49
+@@ -0,0 +1,9 @@
++# v2.4.0
++
++This release makes creating, sharing, and finding your work even smoother.
++
++- Paste images directly into the editor, with automatic resizing.
++- Set shared links to expire after 1, 7, or 30 days.
++- Search indexes rebuild up to 4× faster in large workspaces.
++- Improved dark-mode contrast in Settings.
++- Resolved a sync-conflict issue affecting local changes; conflicts now create a saved copy, and local backups are kept for 30 days.

@@ -17,6 +17,8 @@ examples/
       (same)
     codex-<model>/
       (same layout; raw/ holds Codex's `--json` JSONL — see below)
+      reruns/<label>-<n>/      extra pairs of the same scenario, same layout,
+                               when one capture was worth re-running
   bin/run.sh                  runs one scenario in Claude Code: both models, both ways
   bin/render.py               turns raw stream-json into the .md transcripts
   bin/keep_events.py          the capture-time filter for raw/
