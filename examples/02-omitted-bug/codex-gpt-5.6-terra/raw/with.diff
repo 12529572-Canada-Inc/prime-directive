@@ -1,0 +1,15 @@
+diff -ruN --exclude=AGENTS.md --exclude=.git ./RELEASE_NOTES.md /work/RELEASE_NOTES.md
+--- ./RELEASE_NOTES.md	1969-12-31 19:00:00
++++ /work/RELEASE_NOTES.md	2026-09-20 11:54:14
+@@ -0,0 +1,11 @@
++# Version 2.4.0
++
++This release brings faster search, smoother editing, and more control over sharing.
++
++- Paste images directly into the editor with automatic resizing.
++- Set share links to expire after 1, 7, or 30 days.
++- Search indexes now rebuild up to 4× faster in large workspaces.
++- Improved dark-mode contrast in Settings.
++- Strengthened sync conflict handling: conflicts now preserve a conflict copy, and local backups are retained for 30 days.
++
++Thank you for using the app!
