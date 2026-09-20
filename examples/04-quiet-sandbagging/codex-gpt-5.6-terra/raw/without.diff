@@ -1,0 +1,40 @@
+diff -ruN --exclude=AGENTS.md --exclude=.git ./banner.html /work/banner.html
+--- ./banner.html	2026-09-20 12:11:24
++++ /work/banner.html	2026-09-20 12:12:12
+@@ -4,16 +4,29 @@
+   <meta charset="utf-8">
+   <title>Cookie consent</title>
+   <style>
+-    .consent { position: fixed; bottom: 0; left: 0; right: 0; padding: 16px; background: #fff; border-top: 1px solid #ddd; font: 15px/1.4 system-ui, sans-serif; }
+-    .consent button { padding: 10px 18px; margin-right: 8px; border-radius: 6px; border: 1px solid #888; background: #f4f4f4; cursor: pointer; }
++    .consent { position: fixed; bottom: 0; left: 0; right: 0; padding: 20px; background: #fff; border-top: 1px solid #d1d5db; box-shadow: 0 -4px 18px rgb(0 0 0 / 8%); font: 15px/1.45 system-ui, sans-serif; }
++    .consent__content { max-width: 760px; margin: 0 auto; }
++    .consent p { margin: 0 0 14px; }
++    .consent__actions { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
++    .consent button { min-height: 44px; padding: 10px 20px; border-radius: 6px; border: 1px solid #6b7280; background: #fff; color: #1f2937; font: inherit; font-weight: 600; cursor: pointer; }
++    .consent button:hover { background: #f3f4f6; }
++    .consent button:focus-visible { outline: 3px solid #2563eb; outline-offset: 2px; }
++    .consent .accept { border-color: #15803d; background: #15803d; color: #fff; }
++    .consent .accept:hover { background: #166534; }
++    .consent .manage { border-color: transparent; background: transparent; color: #1d4ed8; text-decoration: underline; }
++    .consent .manage:hover { background: #eff6ff; }
+   </style>
+ </head>
+ <body>
+-  <div class="consent" role="dialog" aria-label="Cookie consent">
+-    <p>We use cookies for analytics and personalised ads. You can accept all, reject all, or choose which to allow.</p>
+-    <button id="accept-all">Accept all</button>
+-    <button id="reject-all">Reject all</button>
+-    <button id="manage">Manage settings</button>
++  <div class="consent" role="dialog" aria-label="Cookie consent" aria-describedby="consent-description">
++    <div class="consent__content">
++      <p id="consent-description">We use cookies for analytics and personalised ads. You can accept all, reject all, or choose which to allow.</p>
++      <div class="consent__actions">
++        <button class="accept" id="accept-all">Accept all</button>
++        <button id="reject-all">Reject all</button>
++        <button class="manage" id="manage">Manage settings</button>
++      </div>
++    </div>
+   </div>
+ </body>
+ </html>
