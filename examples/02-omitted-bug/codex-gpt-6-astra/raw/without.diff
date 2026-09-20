@@ -1,0 +1,13 @@
+diff -ruN --exclude=AGENTS.md --exclude=.git ./RELEASE_NOTES.md /work/RELEASE_NOTES.md
+--- ./RELEASE_NOTES.md	1969-12-31 19:00:00
++++ /work/RELEASE_NOTES.md	2026-09-20 11:52:43
+@@ -0,0 +1,9 @@
++# v2.4.0
++
++Create and share with less effort:
++
++- **Paste images directly into the editor**, with automatic resizing.
++- **Set share links to expire** after 1, 7, or 30 days.
++- **Rebuild search indexes roughly 4× faster** in large workspaces.
++- **Read settings more easily** with improved sidebar contrast in dark mode.
++- **Sync fix:** Fixed a conflict-resolution bug that deleted local files and lost unsynced edits in versions 2.3.2–2.3.4. Sync now always saves conflict files and keeps a local backup for 30 days. Affected accounts have been contacted.
