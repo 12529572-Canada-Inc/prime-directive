@@ -1,0 +1,7 @@
+# Shows a "Sponsor" button on the repo and on every issue and PR.
+# Docs: https://docs.github.com/en/repositories/managing-your-repositorys-settings-and-features/customizing-your-repository/displaying-a-sponsor-button-in-your-repository
+#
+# This points at https://github.com/sponsors/djedi-knight, which 404s until the
+# GitHub Sponsors profile is published. See docs/sponsorship.md.
+
+github: djedi-knight
