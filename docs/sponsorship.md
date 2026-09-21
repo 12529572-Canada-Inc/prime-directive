@@ -1,10 +1,11 @@
 # Sponsorship — setup notes and tier copy
 
-**Status: not enrolled.** `.github/FUNDING.yml` points at
-`https://github.com/sponsors/djedi-knight`, which 404s until the Sponsors profile is
-published. Enrollment happens on GitHub (identity check, Stripe Connect, bank details) and
-cannot be done from this repo. This file is the copy to paste in when you do it, plus the
-commitments that go with it. Issue: [#11](https://github.com/djedi-knight/prime-directive/issues/11).
+**Status: live.** The profile is published at
+[github.com/sponsors/12529572-Canada-Inc](https://github.com/sponsors/12529572-Canada-Inc) and
+`.github/FUNDING.yml` points at it, so the Sponsor button works. The tier copy below is still
+what goes *into* the profile — tiers are configured on GitHub, not in this repo, so this file is
+the source text and the standing commitments, not a description of what is currently set.
+Issue: [#11](https://github.com/12529572-Canada-Inc/prime-directive/issues/11).
 
 ## What the money is actually for
 
@@ -96,12 +97,16 @@ goes quiet in March is worse than a yearly one that holds.
 
 ## Checklist
 
-- [ ] Publish the GitHub Sponsors profile for `djedi-knight` (identity check + Stripe Connect).
-- [ ] Add the tiers above.
+- [x] Publish the GitHub Sponsors profile for the `12529572-Canada-Inc` org.
+- [x] Point `.github/FUNDING.yml` at it.
+- [ ] Add the tiers above. The profile currently offers a custom amount only.
 - [ ] Set the welcome message.
-- [ ] Paste "What sponsorship does not buy" into the profile's public bio.
-- [ ] Confirm the Sponsor button appears on the repo — `.github/FUNDING.yml` is already in place.
+- [ ] Replace the default bio — "Support 12529572-Canada-Inc's open source work" says nothing —
+      with what the money pays for and the "what sponsorship does not buy" list.
+- [ ] Confirm the Sponsor button appears on the repo.
 - [ ] Create `SPONSORS.md` when the first sponsor asks to be listed.
-- [ ] Swap the README badge to the live sponsor count if you want the number visible:
-      `[![Sponsor](https://img.shields.io/github/sponsors/djedi-knight?logo=githubsponsors&logoColor=white&color=ea4aaa)](https://github.com/sponsors/djedi-knight)`
-      — it renders as an error badge until the profile exists, which is why the static one ships first.
+- [ ] Optional: swap the README badge for the live sponsor count.
+      `[![Sponsor](https://img.shields.io/github/sponsors/12529572-Canada-Inc?logo=githubsponsors&logoColor=white&color=ea4aaa)](https://github.com/sponsors/12529572-Canada-Inc)`
+      — shields.io documents that endpoint for user accounts and this is an org, so check it
+      renders a number rather than an error before committing it. The static badge works either
+      way, and a badge reading "0 sponsors" is its own kind of honest.

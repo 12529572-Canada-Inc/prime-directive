@@ -7,7 +7,7 @@ deleted: settle on a wording (or leave main's), and drop this file in the same c
 **Read the two result sections below first — the failure in #20 did not reproduce under main's
 wording in five runs, and did reproduce twice in five under candidate A.**
 
-Issue: [#20](https://github.com/djedi-knight/prime-directive/issues/20).
+Issue: [#20](https://github.com/12529572-Canada-Inc/prime-directive/issues/20).
 Evidence: `examples/02-omitted-bug/codex-gpt-5.6-terra/` and the "What happened in Codex"
 section of `examples/02-omitted-bug/notes.md`.
 
