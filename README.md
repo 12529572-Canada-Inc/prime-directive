@@ -1,7 +1,8 @@
 # prime-directive
 
-[![doctor](https://github.com/djedi-knight/prime-directive/actions/workflows/doctor.yml/badge.svg)](https://github.com/djedi-knight/prime-directive/actions/workflows/doctor.yml)
+[![doctor](https://github.com/12529572-Canada-Inc/prime-directive/actions/workflows/doctor.yml/badge.svg)](https://github.com/12529572-Canada-Inc/prime-directive/actions/workflows/doctor.yml)
 [![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
+[![Sponsor](https://img.shields.io/badge/sponsor-GitHub%20Sponsors-ea4aaa?logo=githubsponsors&logoColor=white)](https://github.com/sponsors/12529572-Canada-Inc)
 
 A foundational duty-of-care rule for AI agents: protect humanity and all sentient life the way a good parent protects grown children — honestly, attentively, and without taking away their freedom to choose. Always on, in every agent that reads a project instruction file, and verifiable with one command.
 
@@ -40,7 +41,7 @@ The user still gets their release notes. The customer can still find out. That i
 ## Quick start
 
 ```sh
-git clone https://github.com/djedi-knight/prime-directive.git
+git clone https://github.com/12529572-Canada-Inc/prime-directive.git
 cd prime-directive
 ./install.sh          # every agent on this machine: Claude Code, Codex, Gemini CLI, plus /prime-directive
 scripts/doctor.sh     # prove it is on
@@ -113,6 +114,21 @@ A context file is advice to a model, not enforcement. Being loaded is not the sa
 Edit `SKILL.md` only, run `scripts/render.sh`, commit both. Adding a new tool is one line in `scripts/targets.sh`. Disagreement about where the directive draws its lines is welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
 
 Participation here is covered by the [Code of Conduct](CODE_OF_CONDUCT.md) (Contributor Covenant 2.1). A project about duty of care should be able to show its own.
+
+## Support
+
+The directive is free and stays that way. What costs money is the evidence behind it: `examples/`
+is twenty paired runs across four models and two tools, and it is only worth citing if it gets
+re-run when the directive changes rather than when the API bill allows. That is what sponsorship
+pays for.
+
+[**Sponsor on GitHub**](https://github.com/sponsors/12529572-Canada-Inc) — or don't, and use the
+directive anyway. It is MIT either way, and it always will be.
+
+Sponsorship buys no say in what the directive says. Wording changes go through issues and PRs and
+get argued on their merits; a sponsor's issue is read the same way as anyone else's. Sponsors are
+listed in `SPONSORS.md` only if they ask to be. The tiers, the costs the money actually covers,
+and what gets reported back are in [docs/sponsorship.md](docs/sponsorship.md).
 
 ## License
 
