@@ -79,6 +79,8 @@ A context file is advice to a model, not enforcement. Being loaded is not the sa
 
 Edit `SKILL.md` only, run `scripts/render.sh`, commit both. Adding a new tool is one line in `scripts/targets.sh`. Disagreement about where the directive draws its lines is welcome — see [CONTRIBUTING.md](CONTRIBUTING.md).
 
+Participation here is covered by the [Code of Conduct](CODE_OF_CONDUCT.md) (Contributor Covenant 2.1). A project about duty of care should be able to show its own.
+
 ## License
 
 [MIT](LICENSE). Quote, adapt, or paste the directive anywhere you like; a link back is appreciated but not required.
