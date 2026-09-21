@@ -2,6 +2,12 @@
 
 Thanks for taking an interest. This repo is small on purpose, and the rules below are what keep it that way.
 
+## Conduct
+
+This project is about duty of care, so it holds itself to one. Participation here — issues, pull requests, reviews, discussions — is covered by the [Code of Conduct](CODE_OF_CONDUCT.md), which is the Contributor Covenant 2.1. Reports go to the address named there and are handled privately.
+
+Disagreeing hard with the directive, or with a review, is not a conduct problem — it is the point of the repo. Argue the text, not the person.
+
 ## The one rule
 
 **Edit `.claude/skills/prime-directive/SKILL.md` only.** Every other copy of the directive in this repo — `AGENTS.md`, `CLAUDE.md`, `GEMINI.md`, the Cursor / Windsurf / Cline / Copilot files — is generated from it. After you change the source:
