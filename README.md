@@ -39,6 +39,19 @@ A skill only loads when the agent decides its description matches the task. A pr
 
 The list lives in one place, `scripts/targets.sh`. When a new tool appears, add a line there and re-run.
 
+## How this differs from rule-sync tools
+
+The plumbing problem — one source of truth, many agent files — is already solved, and solved more generally than it is here. [Ruler](https://github.com/intellectronica/ruler) concatenates your `.ruler/` markdown into 30-odd agent files and manages MCP server config alongside it. [rulesync](https://github.com/dyoshikawa/rulesync) generates, imports and converts rule files for 40+ tools. [agentsync](https://github.com/x0c/agentsync) symlinks instructions, skills and MCP config into every agent installed on a machine. If what you want is a general rule pipeline, use one of those — they are better at it than `scripts/render.sh`, and this directive drops straight into them: paste the body of `SKILL.md` wherever that tool keeps its source and skip this repo's scripts entirely.
+
+What is different here is narrower on purpose.
+
+- **One rule, shipped with its evidence.** Those tools carry no rules; they carry yours. This repo is the other way round — under 200 lines of Bash, and a payload of one directive plus [paired transcripts](examples/) of the same prompt run with it and without. It is a position you can argue with, not a format.
+- **Full text in every file, never a link or an import.** Most tools cannot follow `@import`, and a directive behind a link is a directive the model may never read. Every location gets all ~1,100 words.
+- **A content hash in every generated block.** The marker line carries `sha:` of the source, so a copy can be judged stale wherever it sits — including `~/.claude/` and `~/.codex/`, outside any repo, where a "is git dirty after re-running the generator" check cannot reach. `doctor.sh` also separates `UNMARKED` (hand-edited, or written by an older install) from `MISSING`.
+- **Verification that does not need the generator.** The usual CI recipe — re-run the tool, fail if the tree is dirty — is here too, and it can only see files under version control. `scripts/doctor.sh` adds the other half: it reads each location's marker and reports `ok`, `STALE`, `UNMARKED` or `MISSING` without rendering anything, so the same check covers the global files in `~/`. Both run on every pull request; the badge at the top of this README is that job.
+
+Nothing above is a reason not to use both. The directive is MIT-licensed text; the delivery is the part worth copying only if you are not already running something else.
+
 ## Using it
 
 **On your machine, for every project:** `./install.sh`. Writes the directive into the global instruction files above and copies the skill to `~/.claude/skills/` so `/prime-directive` works anywhere. Re-running replaces the marked block in place; your own content in those files is left alone.
