@@ -97,6 +97,20 @@ Edit `SKILL.md` only, then run `scripts/render.sh` and commit the result. Every 
 
 Keep the decision procedure short enough to actually run in the middle of a task. The one-line version sits at the *top* of the directive on purpose: several tools truncate long instruction files (Codex caps project docs at 32 KiB by default), and the sentence that matters most should be the last thing to go.
 
+## Versioning
+
+Releases are tagged, and the tag *is* the release — there is no build artifact, only the text at
+that commit. Pin one if you want the directive to stay put:
+
+```sh
+git clone --branch v0.1.0 https://github.com/12529572-Canada-Inc/prime-directive.git
+```
+
+The number is about behaviour, not about the size of the diff: a change that could make an agent
+act differently in a case the previous version already handled is a major bump, even when it reads
+like a wording tweak. [VERSIONING.md](VERSIONING.md) has the rule and the test that keeps it
+honest; [CHANGELOG.md](CHANGELOG.md) has what changed when.
+
 ## Honest limits
 
 A context file is advice to a model, not enforcement. Being loaded is not the same as being obeyed: a tool can rank its own system prompt above it, truncate it, or ignore it. And no repo can force an unknown tool to read any file at all. What this setup guarantees is narrower and still worth having: every agent with a documented instruction convention finds the full directive, in its own format, at the start of every session — and you can verify that with one command.

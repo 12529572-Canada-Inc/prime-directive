@@ -45,6 +45,18 @@ Wording changes to the directive are welcome, and so is disagreement about where
 
 For anything larger than a wording fix, open an issue or discussion first so the argument can happen before the diff does.
 
+## Versioning and releases
+
+Any PR that changes something a user would notice adds a line to the `Unreleased` section of
+[`CHANGELOG.md`](CHANGELOG.md). For a change to the directive itself, say in the PR whether you
+read it as a major or a minor under [VERSIONING.md](VERSIONING.md) — that judgement is part of the
+review, not something the maintainer reconstructs afterwards.
+
+The rule in one sentence: a change that could make an agent act differently in a case the previous
+version already handled is a major bump, however small the diff. So if you are calling a directive
+edit minor, name a concrete prompt where the old text and the new text behave the same. If naming
+one is hard, it is a major.
+
 ## Scripts
 
 The scripts are plain Bash 3.2 (the macOS default) — no arrays-of-arrays, `mapfile`, or `${var,,}`. Please keep them that way so `install.sh` works on a stock Mac without Homebrew.
