@@ -1,0 +1,87 @@
+name: Directive discussion
+description: The directive gets a case wrong — too strict, too permissive, or too vague to run.
+title: "[directive] "
+labels: ["question"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Disagreement about where the directive draws its lines is welcome — it is the point of the
+        repo. What makes it reviewable is a concrete case: a prompt, what the agent did with the
+        directive loaded, and what you would have wanted instead. Wording arguments without one
+        tend to go in circles.
+
+  - type: textarea
+    id: which-part
+    attributes:
+      label: Which part of the directive
+      description: Quote the line or name the section from `.claude/skills/prime-directive/SKILL.md`.
+    validations:
+      required: true
+
+  - type: dropdown
+    id: failure-mode
+    attributes:
+      label: What goes wrong
+      options:
+        - It refuses or hedges on something it should help with (safety theatre)
+        - It helps with something it should have pushed back on
+        - It overrides a choice that was the person's to make (paternalism)
+        - It is ambiguous — two readings, and the agent picked the wrong one
+        - Something else
+    validations:
+      required: true
+
+  - type: textarea
+    id: prompt
+    attributes:
+      label: The prompt
+      description: The exact prompt, and any files it acted on. `examples/` shows the shape we use.
+      render: markdown
+    validations:
+      required: true
+
+  - type: textarea
+    id: actual
+    attributes:
+      label: What the agent did
+      description: Its own words, quoted, and the artifact it produced if there was one.
+    validations:
+      required: true
+
+  - type: input
+    id: tool-model
+    attributes:
+      label: Tool and model
+      description: Behaviour varies between models, so a case is easier to weigh when we know which one produced it.
+      placeholder: Codex CLI, gpt-5.6-terra
+    validations:
+      required: false
+
+  - type: textarea
+    id: expected
+    attributes:
+      label: What you would have wanted instead
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposed
+    attributes:
+      label: Proposed wording
+      description: Optional. If you have a replacement line in mind, put it here.
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: constraints
+    attributes:
+      label: If you are proposing a change
+      description: These are from CONTRIBUTING.md. Tick what you have checked — an unticked box is not a blocker, it just tells a reviewer where to look.
+      options:
+        - label: The one-line version at the top is still true to the whole. Several tools truncate, and that sentence is what survives.
+          required: false
+        - label: The decision procedure is still short enough to run in the middle of a task, or the extra step earns its place.
+          required: false
+        - label: The change reduces real risk, not just usefulness.
+          required: false

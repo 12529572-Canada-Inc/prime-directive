@@ -1,0 +1,8 @@
+blank_issues_enabled: true
+contact_links:
+  - name: How this repo works
+    url: https://github.com/djedi-knight/prime-directive/blob/main/CONTRIBUTING.md
+    about: Edit SKILL.md only, then run scripts/render.sh — the rendered copies are generated. Read this before opening a PR.
+  - name: The directive itself
+    url: https://github.com/djedi-knight/prime-directive/blob/main/.claude/skills/prime-directive/SKILL.md
+    about: The single source of truth. Every other copy in the repo is rendered from it.
